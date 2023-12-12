@@ -12,6 +12,8 @@
           ((var(--board-size) - var(--gap-size) * 4) / 3) * 0.8
         );
         --cell-color: lightgreen;
+        --mark-color: black;
+        --mark-hover-color: white;
       }
 
       * {
@@ -46,36 +48,61 @@
         align-items: center;
       }
 
-      /* NOTE: Styling of "X" */
+      /* NOTE: Styling of "X", including hover effects */
       .cell.x::before,
-      .cell.x::after {
+      .cell.x::after,
+      .board.x .cell:not(.x):not(.o):hover::before,
+      .board.x .cell:not(.x):not(.o):hover::after {
         content: "";
-        background-color: black;
         height: var(--mark-size);
         width: calc(var(--mark-size) * 0.2);
         position: absolute;
       }
 
-      .cell.x::before {
+      .cell.x::before,
+      .cell.x::after {
+        background-color: var(--mark-color);
+      }
+
+      .board.x .cell:not(.x):not(.o):hover::before,
+      .board.x .cell:not(.x):not(.o):hover::after {
+        background-color: var(--mark-hover-color);
+      }
+
+      .cell.x::before,
+      .board.x .cell:not(.x):not(.o):hover::before {
         transform: rotate(45deg);
       }
 
-      .cell.x::after {
+      .cell.x::after,
+      .board.x .cell:not(.x):not(.o):hover::after {
         transform: rotate(-45deg);
       }
 
-      /* NOTE: Styling of "O" */
+      /* NOTE: Styling of "O", including hover effects */
       .cell.o::before,
-      .cell.o::after {
+      .cell.o::after,
+      .board.o .cell:not(.x):not(.o):hover::before,
+      .board.o .cell:not(.x):not(.o):hover::after {
         content: "";
-        background-color: black;
         height: calc(var(--mark-size) * 0.9);
         width: calc(var(--mark-size) * 0.9);
         border-radius: 50%;
         position: absolute;
       }
 
+      .cell.o::before,
       .cell.o::after {
+        background-color: var(--mark-color);
+      }
+
+      .board.o .cell:not(.x):not(.o):hover::before,
+      .board.o .cell:not(.x):not(.o):hover::after {
+        background-color: var(--mark-hover-color);
+      }
+
+      .cell.o::after,
+      .board.o .cell:not(.x):not(.o):hover::after {
         height: calc(var(--mark-size) * 0.6);
         width: calc(var(--mark-size) * 0.6);
         background-color: var(--cell-color);
@@ -84,8 +111,8 @@
   </head>
   <body>
     <div class="board" id="board">
-      <div class="cell o" data-cell></div>
-      <div class="cell x" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
       <div class="cell" data-cell></div>
       <div class="cell" data-cell></div>
       <div class="cell" data-cell></div>
