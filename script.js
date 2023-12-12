@@ -60,6 +60,7 @@ function handleClick(e) {
     showHover();
   }
 }
+// BUG: Clicking on cells previously clicked still allowed, and messes up the game logic
 
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
