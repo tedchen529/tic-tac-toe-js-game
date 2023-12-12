@@ -1,5 +1,6 @@
 // TODO: Sound effects!
 
+const board = document.querySelector("#board");
 const cells = document.querySelectorAll("[data-cell]");
 // NOTE: Attribute selector
 const classX = "x";
@@ -28,21 +29,35 @@ function startGame() {
     cell.removeEventListener("click", handleClick);
     cell.addEventListener("click", handleClick);
   });
+  showHover();
+}
+
+function showHover() {
+  board.classList.remove(classX);
+  board.classList.remove(classO);
+  if (oTurn) {
+    board.classList.add(classO);
+  } else {
+    board.classList.add(classX);
+  }
 }
 
 function handleClick(e) {
   const cell = e.target;
   // Q: target vs currentTarget?
   const currentClass = oTurn ? classO : classX;
-  // NOTE: Place mark >> Check win >> Check draw >> Switch turns
+  // NOTE: Place mark >> Check win >> Check draw >> Switch turns >> End game
   placeMark(cell, currentClass);
 
   if (checkWin(currentClass)) {
-    console.log("Game ends in victory for either side");
+    endGame(false);
+    // NOTE: Game does not end in draw
   } else if (checkDraw()) {
-    console.log("Draw!");
+    endGame(true);
+    // NOTE: Game ends in draw
   } else {
     switchTurns();
+    showHover();
   }
 }
 
@@ -72,6 +87,10 @@ function switchTurns() {
   oTurn = !oTurn;
 }
 
-// endGame(false);
-// endGame(true);
-// showHover();
+function endGame(isDraw) {
+  if (isDraw) {
+    console.log("Draw!");
+  } else {
+    console.log(`${oTurn ? "O" : "X"} wins!`);
+  }
+}
