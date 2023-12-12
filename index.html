@@ -8,6 +8,10 @@
       :root {
         --board-size: 600px;
         --gap-size: 50px;
+        --mark-size: calc(
+          ((var(--board-size) - var(--gap-size) * 4) / 3) * 0.8
+        );
+        --cell-color: lightgreen;
       }
 
       * {
@@ -34,15 +38,54 @@
       }
 
       .cell {
-        background-color: lightgreen;
+        background-color: var(--cell-color);
         cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* NOTE: Styling of "X" */
+      .cell.x::before,
+      .cell.x::after {
+        content: "";
+        background-color: black;
+        height: var(--mark-size);
+        width: calc(var(--mark-size) * 0.2);
+        position: absolute;
+      }
+
+      .cell.x::before {
+        transform: rotate(45deg);
+      }
+
+      .cell.x::after {
+        transform: rotate(-45deg);
+      }
+
+      /* NOTE: Styling of "O" */
+      .cell.o::before,
+      .cell.o::after {
+        content: "";
+        background-color: black;
+        height: calc(var(--mark-size) * 0.9);
+        width: calc(var(--mark-size) * 0.9);
+        border-radius: 50%;
+        position: absolute;
+      }
+
+      .cell.o::after {
+        height: calc(var(--mark-size) * 0.6);
+        width: calc(var(--mark-size) * 0.6);
+        background-color: var(--cell-color);
       }
     </style>
   </head>
   <body>
     <div class="board" id="board">
       <div class="cell o" data-cell></div>
-      <div class="cell" data-cell></div>
+      <div class="cell x" data-cell></div>
       <div class="cell" data-cell></div>
       <div class="cell" data-cell></div>
       <div class="cell" data-cell></div>
