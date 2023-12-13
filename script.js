@@ -30,7 +30,8 @@ function startGame() {
     cell.classList.remove(classX);
     cell.classList.remove(classO);
     cell.removeEventListener("click", handleClick);
-    cell.addEventListener("click", handleClick);
+    cell.addEventListener("click", handleClick, { once: true });
+    // NOTE: Prevent players from clicking on a cell twice
   });
   showHover();
 }
@@ -55,6 +56,13 @@ function handleClick(e) {
   if (checkWin(currentClass)) {
     endGame(false);
     // NOTE: Game does not end in draw
+    cells.forEach((cell) => {
+      cell.removeEventListener("click", handleClick);
+      cell.classList.add("disabled");
+    });
+    board.classList.remove(classX);
+    board.classList.remove(classO);
+    // NOTE: Prevent players from continuing the game after results are shown
   } else if (checkDraw()) {
     endGame(true);
     // NOTE: Game ends in draw
@@ -63,8 +71,6 @@ function handleClick(e) {
     showHover();
   }
 }
-// BUG: Clicking on cells previously clicked still allowed, and messes up the game logic
-// BUG: Players can keep playing after result is displayed
 
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
@@ -104,4 +110,5 @@ function endGame(isDraw) {
 restartBtn.addEventListener("click", startGame);
 
 // TODO: Scoreboard (Player 1 vs Player 2)
+// TODO: Pick who goes first
 // TODO: Confetti animation
