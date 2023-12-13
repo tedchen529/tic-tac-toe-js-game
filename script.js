@@ -3,6 +3,7 @@
 const board = document.querySelector("#board");
 const cells = document.querySelectorAll("[data-cell]");
 // NOTE: Attribute selector
+const restartBtn = document.querySelector("#restart-btn");
 const classX = "x";
 const classO = "o";
 const winCombos = [
@@ -95,3 +96,6 @@ function endGame(isDraw) {
     console.log(`${oTurn ? "O" : "X"} wins!`);
   }
 }
+
+// NOTE: Wipes the board
+restartBtn.addEventListener("click", startGame);
