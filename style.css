@@ -1,7 +1,6 @@
 :root {
   --board-size: 300px;
-  --line-size: 0px;
-  --mark-size: calc(((var(--board-size) - 2rem) / 3) * 0.8);
+  --mark-size: calc(((var(--board-size) - 2rem) / 3) * 0.7);
   --board-color: white;
   --mark-x-color: #7f7fff;
   --mark-o-color: #7f7f7f;
@@ -17,6 +16,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
   background-color: #fbfbfb;
@@ -28,7 +28,6 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: var(--line-size);
   padding: 2rem;
   background-color: var(--board-color);
   border-radius: 10px;
@@ -126,3 +125,17 @@ body {
   width: calc(var(--mark-size) * 0.6);
   background-color: var(--board-color);
 }
+
+.restart-btn {
+  width: 6rem;
+  height: 2rem;
+  border: none;
+  border-radius: 3rem;
+  background-color: var(--board-color);
+  box-shadow: 1px 1px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.restart-btn:active {
+  box-shadow: none;
+}
+/* TODO: Better active style */

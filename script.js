@@ -16,11 +16,13 @@ const winCombos = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+const resultDisplay = document.querySelector("#result-display");
 let oTurn;
 
 startGame();
 
 function startGame() {
+  resultDisplay.innerHTML = "Start Playing!";
   oTurn = false;
   // NOTE: X starts the game
   // TODO: Choose who goes first?
@@ -62,6 +64,7 @@ function handleClick(e) {
   }
 }
 // BUG: Clicking on cells previously clicked still allowed, and messes up the game logic
+// BUG: Players can keep playing after result is displayed
 
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
@@ -91,11 +94,14 @@ function switchTurns() {
 
 function endGame(isDraw) {
   if (isDraw) {
-    console.log("Draw!");
+    resultDisplay.innerText = `It's a Draw!`;
   } else {
-    console.log(`${oTurn ? "O" : "X"} wins!`);
+    resultDisplay.innerText = `${oTurn ? "O" : "X"} Wins!`;
   }
 }
 
 // NOTE: Wipes the board
 restartBtn.addEventListener("click", startGame);
+
+// TODO: Scoreboard (Player 1 vs Player 2)
+// TODO: Confetti animation
